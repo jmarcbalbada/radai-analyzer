@@ -26,6 +26,7 @@ COPY --from=builder /opt/venv /opt/venv
 # Set environment variables
 ENV PATH="/opt/venv/bin:$PATH"
 ENV PYTHONUNBUFFERED=1
+ENV PORT=8080
 
 # Set working directory
 WORKDIR /app
@@ -34,7 +35,7 @@ WORKDIR /app
 COPY . .
 
 # Expose port
-EXPOSE 8000
+EXPOSE ${PORT}
 
 # Command to run the application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"] 
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT} 
